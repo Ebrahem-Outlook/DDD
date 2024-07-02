@@ -37,9 +37,4 @@ internal sealed class UserRepository : IUserRepository
     {
         return await _dbContext.Set<User>().FirstOrDefaultAsync(user => user.Id == id, cancellationToken);
     }
-
-    public async Task<bool> IsEmailUnique(string email, CancellationToken cancellationToken = default)
-    {
-        return await _dbContext.Set<User>().AnyAsync(user => user.Email == email, cancellationToken);
-    }
 }

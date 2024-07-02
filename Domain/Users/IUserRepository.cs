@@ -10,5 +10,4 @@ public interface IUserRepository
     // Queries.
     Task<List<User>?> GetAllAsync(CancellationToken cancellationToken = default);
     Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-    Task<bool> IsEmailUnique(string email, CancellationToken cancellationToken = default);
 }

@@ -12,9 +12,9 @@ public sealed class Order : AggregateRoot
     /// <param name="UserId">The identifier of user he create this order.</param>
     /// <param name="orderId">The identifier of order.</param>
     /// <param name="products">The list of products for this order.</param>
-    private Order(Guid UserId, Guid orderId, List<Product> products) : base(orderId)
+    private Order(Guid UserId, Guid orderId, ICollection<Product> products) : base(orderId)
     {
-        _products = new List<Product>(products);
+        _products = products.ToList();
         TotalPrice = products.Sum(p => p.Price);
         CreatedAt = DateTime.UtcNow;
     }
@@ -43,7 +43,7 @@ public sealed class Order : AggregateRoot
     /// The List of products.
     /// </summary>
     private List<Product> _products = new List<Product>();
-    public IReadOnlyCollection<Product> Products => _products.AsReadOnly();
+    public ICollection<Product> Products => _products.AsReadOnly();
 
     /// <summary>
     /// Factory Method to controlle the craetion of order.
@@ -52,11 +52,16 @@ public sealed class Order : AggregateRoot
     /// <param name="products">The list of product in side the order.</param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException">The Exception throw when any parameter doesn't have the required validation.</exception>
-    public static Order Create(Guid userId, List<Product> products)
+    public static Order Create(Guid userId, ICollection<Product> products)
     {
         if (products is null)
         {
             throw new ArgumentNullException("Products Required ... To Create Order you should Create alist of Product.");
+        }
+
+        if (userId == Guid.Empty)
+        {
+            throw new ArgumentNullException("UserId is required.");
         }
 
         Order order = new Order(userId, Guid.NewGuid(), products);

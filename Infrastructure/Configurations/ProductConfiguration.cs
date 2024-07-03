@@ -10,11 +10,13 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         builder.HasKey(product => product.Id);
 
+        builder.HasAlternateKey(product => product.UserId);
+
         builder.Property(product => product.Name).IsRequired().HasMaxLength(30);
 
         builder.Property(product => product.Description).IsRequired().HasMaxLength(500);
 
-        builder.Property(product => product.Price).IsRequired().HasColumnType("decimal(2,18)");
+        builder.Property(product => product.Price).IsRequired().HasColumnType("decimal(18, 2)");
 
         builder.Property(product => product.CreatedAt).IsRequired();
 

@@ -1,4 +1,6 @@
 ﻿using Application.Core.Abstractions.Data;
+using Domain.Orders;
+using Domain.Products;
 using Domain.Users;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
@@ -21,6 +23,10 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<AppDbContext>());
 
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IProductRepository, ProductRepository>();
+
+        services.AddScoped<IOrderRepository, OrderRepository>();
 
         return services;
     }

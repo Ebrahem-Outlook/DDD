@@ -42,7 +42,7 @@ public sealed class Order : AggregateRoot
     /// <summary>
     /// The List of products.
     /// </summary>
-    private List<Product> _products = new();
+    private List<Product> _products = new List<Product>();
     public IReadOnlyCollection<Product> Products => _products.AsReadOnly();
 
     /// <summary>

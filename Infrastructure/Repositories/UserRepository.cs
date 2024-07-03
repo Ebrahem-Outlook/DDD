@@ -8,11 +8,8 @@ internal sealed class UserRepository : IUserRepository
 {
     private readonly IDbContext _dbContext;
 
-    public UserRepository(IDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
+    public UserRepository(IDbContext dbContext) => _dbContext = dbContext;
+    
     public async Task AddAsync(User user, CancellationToken cancellationToken = default)
     {
         await _dbContext.Set<User>().AddAsync(user, cancellationToken);

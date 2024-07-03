@@ -9,7 +9,7 @@ public interface IOrderRepository
 
     // Queries.
     Task<List<Order>?> GetAllAsync(CancellationToken cancellationToken = default);
-    Task GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Order?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }
 
 

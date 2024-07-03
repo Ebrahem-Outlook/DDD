@@ -1,6 +1,5 @@
 ﻿using Domain.Core.Premitives;
 using Domain.Products.Events;
-using Domain.Users;
 
 namespace Domain.Products;
 
@@ -8,7 +7,6 @@ public sealed class Product : AggregateRoot
 {
     private const int MaxLength_Name = 30;
     private const int MaxLength_Description = 500;
-
     
     /// <summary>
     /// Initialize a new instance of the <see cref="Product"/> class.
@@ -18,7 +16,7 @@ public sealed class Product : AggregateRoot
     /// <param name="name">The name of product.</param>
     /// <param name="description">The description of product.</param>
     /// <param name="price">The price of product.</param>
-    private Product(Guid productId, Guid userId,  string name, string description, decimal price) : base(productId)
+    private Product(Guid userId, Guid productId, string name, string description, decimal price) : base(productId)
     {
         UserId = userId;
         Name = name;
@@ -33,7 +31,7 @@ public sealed class Product : AggregateRoot
     private Product() : base() { }
 
     /// <summary>
-    /// Gets the identifier of user create this product.
+    /// Foreignkey for User (owner).
     /// </summary>
     public Guid UserId { get; }
 

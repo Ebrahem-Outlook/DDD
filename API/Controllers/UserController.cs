@@ -12,7 +12,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[Controller]")]
-public sealed class UserController(ISender sender) : ControllerBase
+public sealed class UsersController(ISender sender) : ControllerBase
 {
     private readonly ISender _sender = sender;
 

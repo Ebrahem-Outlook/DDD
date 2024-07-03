@@ -20,6 +20,8 @@ internal sealed class ChangeUserPasswordCommandHandler : ICommandHandler<ChangeU
     {
         User user = await _userRepository.GetByIdAsync(request.UserId) ?? throw new NullReferenceException();
 
+        user.ChangePassword(request.Password);
+
         _userRepository.Update(user);
 
         UserDTO userDTO = new UserDTO(user.Id, user.FirstName, user.LastName, user.Email, user.Password);

@@ -21,11 +21,7 @@
     <Folder Include="Core\Abstractions\Events\" />
     <Folder Include="Orders\Events\" />
     <Folder Include="Products\Events\" />
-    <Folder Include="Products\Queries\GetAllProduct\" />
-    <Folder Include="Products\Queries\GetProductById\" />
     <Folder Include="Users\Events\" />
-    <Folder Include="Users\Queries\GetAllOrders\" />
-    <Folder Include="Users\Queries\GetAllProducts\" />
   </ItemGroup>
 
 </Project>

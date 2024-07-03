@@ -1,5 +1,4 @@
-﻿
-using API.Contracts.Product;
+﻿using API.Contracts.Product;
 using Application.Products.Commands.CreateProduct;
 using Application.Products.Commands.DeleteProduct;
 using Application.Products.Commands.UpdateProduct;

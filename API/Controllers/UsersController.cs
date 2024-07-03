@@ -3,6 +3,8 @@ using Application.Users.Commands.ChangeUserEmail;
 using Application.Users.Commands.ChangeUserName;
 using Application.Users.Commands.ChangeUserPassword;
 using Application.Users.Commands.CreateUser;
+using Application.Users.Queries.GetAllOrders;
+using Application.Users.Queries.GetAllProducts;
 using Application.Users.Queries.GetAllUsers;
 using Application.Users.Queries.GetUserById;
 using MediatR;
@@ -52,4 +54,10 @@ public sealed class UsersController(ISender sender) : ControllerBase
 
     [HttpGet("id")]
     public async Task<IActionResult> GetById(Guid id) => Ok(await _sender.Send(new GetUserByIdQuery(id)));
+
+    [HttpGet("products")]
+    public async Task<IActionResult> GetAllProductsOfUser(Guid UserId) => Ok(await _sender.Send(new GetAllProductsOfUserQuery(UserId)));
+
+    [HttpGet("orders")]
+    public async Task<IActionResult> GetAllOrdersOfUser(Guid UserId) => Ok(await _sender.Send(new GetAllOrdersOfUserQuery(UserId)));
 }

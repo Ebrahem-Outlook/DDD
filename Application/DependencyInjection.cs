@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Core.Behaviors;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -12,7 +13,7 @@ public static class DependencyInjection
         {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 
-            
+            cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

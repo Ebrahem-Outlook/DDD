@@ -7,4 +7,4 @@ public sealed record ProductCreatedDomainEvent(
     string Name,
     string Description,
     decimal Price,
-    DateTime CreatedAt) : IDomainEvent;
+    DateTime CreatedAt) : DomainEvent;

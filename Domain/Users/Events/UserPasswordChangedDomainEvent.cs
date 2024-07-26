@@ -4,4 +4,4 @@ namespace Domain.Users.Events;
 
 public sealed record UserPasswordChangedDomainEvent(
     Guid UserId,
-    string Password) : IDomainEvent;
+    string Password) : DomainEvent;

@@ -5,4 +5,4 @@ namespace Domain.Users.Events;
 public sealed record UserNameChangedDomainEvent(
     Guid UserId,
     string Firstname,
-    string LastName) : IDomainEvent;
+    string LastName) : DomainEvent;

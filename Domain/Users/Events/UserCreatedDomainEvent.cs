@@ -7,4 +7,4 @@ public sealed record UserCreatedDomainEvent(
     string FirstName, 
     string LastName,
     string Email, 
-    string Passwor) : IDomainEvent;
+    string Passwor) : DomainEvent;

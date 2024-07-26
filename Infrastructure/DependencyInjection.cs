@@ -17,7 +17,7 @@ public static class DependencyInjection
 
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            string? connection = configuration.GetConnectionString("DefaultConnection");
+            string? connection = configuration.GetConnectionString("Local-SqlServer");
 
             options.UseSqlServer(connection);
         });

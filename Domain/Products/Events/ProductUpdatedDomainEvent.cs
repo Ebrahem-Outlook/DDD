@@ -1,4 +1,4 @@
-﻿using Domain.Core.Abstractions.Events;
+﻿using Domain.Core.Events;
 
 namespace Domain.Products.Events;
 
@@ -8,4 +8,4 @@ public sealed record ProductUpdatedDomainEvent(
     string Description,
     decimal Price,
     DateTime CreatedAt,
-    DateTime UpdatedAt) : IDomainEvent;
+    DateTime? UpdatedAt) : DomainEvent;

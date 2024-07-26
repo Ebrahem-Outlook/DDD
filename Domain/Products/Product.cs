@@ -1,12 +1,12 @@
-﻿using Domain.Core.Premitives;
+﻿using Domain.Core.BaseType;
 using Domain.Products.Events;
 
 namespace Domain.Products;
 
 public sealed class Product : AggregateRoot
 {
-    private const int MaxLength_Name = 30;
-    private const int MaxLength_Description = 500;
+    public const int MaxLength_Name = 30;
+    public const int MaxLength_Description = 500;
     
     /// <summary>
     /// Initialize a new instance of the <see cref="Product"/> class.
@@ -72,26 +72,33 @@ public sealed class Product : AggregateRoot
     /// <exception cref="ArgumentException">The Exception throw when any parameter doesn't have the required validation.</exception>
     public static Product Create(Guid userId, string name, string description, decimal price)
     {
-        if(string.IsNullOrWhiteSpace(name) || name.Length > MaxLength_Name)
+        try
         {
-            throw new ArgumentException("Name maybe null Or Longer than the Max Length");
-        }
+            if (string.IsNullOrWhiteSpace(name) || name.Length > MaxLength_Name)
+            {
+                throw new ArgumentException("Name maybe null Or Longer than the Max Length");
+            }
 
-        if (string.IsNullOrWhiteSpace(description) || description.Length > MaxLength_Description)
+            if (string.IsNullOrWhiteSpace(description) || description.Length > MaxLength_Description)
+            {
+                throw new ArgumentException("Name maybe null Or Longer than the Max Length");
+            }
+
+            if (price <= 0)
+            {
+                throw new ArgumentException("Price is rquired ...Please..");
+            }
+
+            Product product = new Product(userId, Guid.NewGuid(), name, description, price);
+
+            product.RaiseDomainEvent(new ProductCreatedDomainEvent(product.Id, product.Name, product.Description, product.Price, product.CreatedAt));
+
+            return product;
+        }
+        catch(ArgumentException)
         {
-            throw new ArgumentException("Name maybe null Or Longer than the Max Length");
+            throw;
         }
-
-        if (price <= 0)
-        {
-            throw new ArgumentException("Price is rquired ...Please..");
-        }
-
-        Product product = new Product(userId, Guid.NewGuid(), name, description, price);
-
-        product.AddDomainEvent(new ProductCreatedDomainEvent(product.Id, product.Name, product.Description, product.Price, product.CreatedAt));
-
-        return product;
     }
 
     /// <summary>
@@ -104,29 +111,38 @@ public sealed class Product : AggregateRoot
     /// <exception cref="ArgumentException">The Exception throw when any paramert doesn't have the required validation.</exception>
     public void Update(Guid userId, string name, string description, decimal price)
     {
-        if (UserId != userId)
+        try
         {
-            throw new ArgumentException($"UsreId ({userId}) does not match.");
-        }
+            if (UserId != userId)
+            {
+                throw new ArgumentException($"UsreId ({userId}) does not match.");
+            }
 
-        if (string.IsNullOrWhiteSpace(name) || name.Length > MaxLength_Name)
+            if (string.IsNullOrWhiteSpace(name) || name.Length > MaxLength_Name)
+            {
+                throw new ArgumentException("Name maybe null Or Longer than the Max Length");
+            }
+
+            if (string.IsNullOrWhiteSpace(description) || description.Length > MaxLength_Description)
+            {
+                throw new ArgumentException("Name maybe null Or Longer than the Max Length");
+            }
+
+            if (price <= 0)
+            {
+                throw new ArgumentException("Price is rquired ...Please..");
+            }
+
+            Name = name;
+            Description = description;
+            Price = price;
+            UpdatedAt = DateTime.UtcNow;
+
+            RaiseDomainEvent(new ProductUpdatedDomainEvent(Id, Name, Description, Price, CreatedAt, UpdatedAt));
+        }
+        catch(ArgumentException)
         {
-            throw new ArgumentException("Name maybe null Or Longer than the Max Length");
+            return;
         }
-
-        if (string.IsNullOrWhiteSpace(description) || description.Length > MaxLength_Description)
-        {
-            throw new ArgumentException("Name maybe null Or Longer than the Max Length");
-        }
-
-        if (price <= 0)
-        {
-            throw new ArgumentException("Price is rquired ...Please..");
-        }
-
-        Name = name;
-        Description = description;
-        Price = price;
-        UpdatedAt = DateTime.UtcNow;
     }
 }

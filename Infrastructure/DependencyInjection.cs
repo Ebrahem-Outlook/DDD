@@ -14,13 +14,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastrcure(this IServiceCollection services, IConfiguration configuration)
     {
-        string? connection = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            string? connection = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddScoped<IDbContext>(serviceProvider => serviceProvider.GetRequiredService<AppDbContext>());
+            options.UseSqlServer(connection);
+        });
+        
+        services.AddScoped<IDbContext>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
 
-        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<AppDbContext>());
+        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<ApplicationDbContext>());
+
 
         services.AddScoped<IUserRepository, UserRepository>();
 

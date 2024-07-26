@@ -1,4 +1,4 @@
-﻿using Domain.Core.Abstractions.Events;
+﻿using Domain.Core.Events;
 
 namespace Domain.Orders.Events;
 
@@ -6,4 +6,4 @@ public sealed record OrderCreatedDomainEvent(
     Guid UserId,
     Guid OrderId,
     decimal TotalPrice,
-    DateTime CreatedAt) : IDomainEvent;
+    DateTime CreatedAt) : DomainEvent;

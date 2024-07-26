@@ -12,7 +12,7 @@ internal sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
 
         builder.HasAlternateKey(order => order.UserId);
 
-        builder.Ignore(order => order.Products);
+        builder.HasMany(order => order.Products).WithOne();
 
         builder.Property(order => order.CreatedAt).IsRequired();
 

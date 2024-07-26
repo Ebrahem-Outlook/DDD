@@ -1,13 +1,19 @@
 ﻿using Application.Core.Abstractions.Data;
-using Domain.Core.Premitives;
+using Domain.Core.BaseType;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Reflection;
 
 namespace Infrastructure.Data;
 
-public sealed class AppDbContext : DbContext, IDbContext, IUnitOfWork
+public sealed class ApplicationDbContext : DbContext, IDbContext, IUnitOfWork
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+    public async Task<IDbContextTransaction> BeginTransaction(CancellationToken cancellationToken)
+    {
+        return await Database.BeginTransactionAsync(cancellationToken).ConfigureAwait(false);
+    }
 
     public new async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

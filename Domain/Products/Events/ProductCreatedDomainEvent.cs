@@ -1,4 +1,4 @@
-﻿using Domain.Core.Abstractions.Events;
+﻿using Domain.Core.Events;
 
 namespace Domain.Products.Events;
 

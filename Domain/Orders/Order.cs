@@ -1,4 +1,4 @@
-﻿using Domain.Core.Premitives;
+﻿using Domain.Core.BaseType;
 using Domain.Orders.Events;
 using Domain.Products;
 
@@ -66,7 +66,7 @@ public sealed class Order : AggregateRoot
 
         Order order = new Order(userId, Guid.NewGuid(), products);
 
-        order.AddDomainEvent(new OrderCreatedDomainEvent(order.UserId, order.Id, order.TotalPrice, order.CreatedAt));
+        order.RaiseDomainEvent(new OrderCreatedDomainEvent(order.UserId, order.Id, order.TotalPrice, order.CreatedAt));
 
         return order;
     }

@@ -1,11 +1,11 @@
-﻿namespace Domain.Core.Premitives;
+﻿namespace Domain.Core.BaseType;
 
 public abstract class Entity : IEquatable<Entity?>
 {
     protected Entity(Guid id) => Id = id;
 
     protected Entity() { }
-    
+
     public Guid Id { get; private set; }
 
     public override bool Equals(object? obj)

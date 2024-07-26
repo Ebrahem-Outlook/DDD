@@ -8,18 +8,48 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        // Table name.
+        builder.ToTable("Users");
+
+        // Primary key.
         builder.HasKey(user => user.Id);
 
-        builder.Property(user => user.FirstName).IsRequired().HasMaxLength(30);
+        // properties.
+        builder.Property(user => user.FirstName)
+               .IsRequired()
+               .HasMaxLength(User.MaxLength);
 
-        builder.Property(user => user.LastName).IsRequired().HasMaxLength(30);
+        builder.Property(user => user.LastName)
+               .IsRequired()
+               .HasMaxLength(User.MaxLength);
 
-        builder.Property(user => user.Email).IsRequired().HasMaxLength(30);
+        builder.Property(user => user.Email)
+               .IsRequired()
+               .HasMaxLength(User.MaxLength);
 
-        builder.Property(user => user.Password).IsRequired().HasMaxLength(30);
+        builder.Property(user => user.Password)
+               .IsRequired()
+               .HasMaxLength(User.MaxLength);
 
-        builder.Ignore(user => user.Products);
+        // Relationships.
+        builder.HasMany(user => user.Orders)
+               .WithOne()
+               .HasForeignKey("UserId")
+               .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Ignore(user => user.Orders);
+        builder.HasMany(user => user.Products)
+               .WithOne()
+               .HasForeignKey("UserId")
+               .OnDelete(DeleteBehavior.Cascade);
+
+        // Ignore domain events.
+        builder.Ignore(user => user.DomainEvents);
+
+        // Private collections.
+        builder.Metadata.FindNavigation(nameof(User.Orders))!
+                        .SetPropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.Metadata.FindNavigation(nameof(User.Products))!
+                        .SetPropertyAccessMode(PropertyAccessMode.Field); 
     }
 }

@@ -1,4 +1,4 @@
-﻿using Domain.Core.Premitives;
+﻿using Domain.Core.BaseType;
 using Domain.Orders;
 using Domain.Products;
 using Domain.Users.Events;
@@ -7,10 +7,7 @@ namespace Domain.Users;
 
 public sealed class User : AggregateRoot
 {
-    private const int MaxLength_FirstName = 30;
-    private const int MaxLength_LastName = 30;
-    private const int MaxLength_Email = 30;
-    private const int MaxLength_Password = 30;
+    public const int MaxLength = 30;
 
     /// <summary>
     /// Initialize a new instance of the <see cref="User"/> calss.
@@ -76,29 +73,29 @@ public sealed class User : AggregateRoot
     /// <returns></returns>
     public static User Create(string firstName, string lastName, string email, string password)
     {
-        if (string.IsNullOrEmpty(firstName) || firstName.Length > MaxLength_Email) 
+        if (string.IsNullOrEmpty(firstName) || firstName.Length > MaxLength) 
         {
             throw new ArgumentException("First Name maybe null or longer than the Max Length.");
         }
 
-        if (string.IsNullOrWhiteSpace(lastName) || lastName.Length > MaxLength_LastName)
+        if (string.IsNullOrWhiteSpace(lastName) || lastName.Length > MaxLength)
         {
             throw new ArgumentException("Last Name maybe null or longer than the Max Length.");
         }
 
-        if (string.IsNullOrWhiteSpace(email) || email.Length > MaxLength_Email)
+        if (string.IsNullOrWhiteSpace(email) || email.Length > MaxLength)
         {
             throw new ArgumentException("Email maybe null or longer than the Max Length.");
         }
 
-        if (string.IsNullOrWhiteSpace(password) || password.Length > MaxLength_Password)
+        if (string.IsNullOrWhiteSpace(password) || password.Length > MaxLength)
         {
             throw new ArgumentException("Password maybe null or longer than the Max Length.");
         }
 
         User user = new(Guid.NewGuid(), firstName, lastName, email, password);
 
-        user.AddDomainEvent(new UserCreatedDomainEvent(user.Id, user.FirstName, user.LastName, user.Email, user.Password));
+        user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id, user.FirstName, user.LastName, user.Email, user.Password));
 
         return user;
     }
@@ -112,12 +109,12 @@ public sealed class User : AggregateRoot
     /// <exception cref="ArgumentException">The Exception throw when any parameter doesn't have the required validation.</exception>
     public void ChangeName(string firstName, string lastName)
     {
-        if (string.IsNullOrEmpty(firstName) || firstName.Length > MaxLength_Email)
+        if (string.IsNullOrEmpty(firstName) || firstName.Length > MaxLength)
         {
             throw new ArgumentException("First Name maybe null or longer than the Max Length.");
         }
 
-        if (string.IsNullOrWhiteSpace(lastName) || lastName.Length > MaxLength_LastName)
+        if (string.IsNullOrWhiteSpace(lastName) || lastName.Length > MaxLength)
         {
             throw new ArgumentException("Last Name maybe null or longer than the Max Length.");
         }
@@ -125,7 +122,7 @@ public sealed class User : AggregateRoot
         FirstName = firstName;
         LastName = lastName;
 
-        AddDomainEvent(new UserNameChangedDomainEvent(Id, FirstName, LastName));
+        RaiseDomainEvent(new UserNameChangedDomainEvent(Id, FirstName, LastName));
     }
 
     /// <summary>
@@ -135,14 +132,14 @@ public sealed class User : AggregateRoot
     /// <exception cref="ArgumentException">The Exception throw when any parameter doesn't have the required validation.</exception>
     public void ChangeEmail(string email)
     {
-        if (string.IsNullOrWhiteSpace(email) || email.Length > MaxLength_Email)
+        if (string.IsNullOrWhiteSpace(email) || email.Length > MaxLength)
         {
             throw new ArgumentException("Email maybe null or longer than the Max Length.");
         }
 
         Email = email;
 
-        AddDomainEvent(new UserEmailChangedDomainEvent(Id, Email));
+        RaiseDomainEvent(new UserEmailChangedDomainEvent(Id, Email));
     }
 
     /// <summary>
@@ -152,14 +149,14 @@ public sealed class User : AggregateRoot
     /// <exception cref="ArgumentException">The Exception throw when any parameter doesn't have the required validation.</exception>
     public void ChangePassword(string password)
     {
-        if (string.IsNullOrWhiteSpace(password) || password.Length > MaxLength_Password)
+        if (string.IsNullOrWhiteSpace(password) || password.Length > MaxLength)
         {
             throw new ArgumentException("Password maybe null or longer than the Max Length.");
         }
 
         Password = password;
 
-        AddDomainEvent(new UserPasswordChangedDomainEvent(Id, Password));
+        RaiseDomainEvent(new UserPasswordChangedDomainEvent(Id, Password));
     }
 
     /// <summary>

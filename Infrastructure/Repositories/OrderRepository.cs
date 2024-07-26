@@ -4,29 +4,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-internal sealed class OrderRepository : IOrderRepository
-{
-    private readonly IDbContext _dbContext;
-
-    public OrderRepository(IDbContext dbContext) => _dbContext = dbContext;
-    
+internal sealed class OrderRepository(IDbContext dbContext) : IOrderRepository
+{   
     public async Task AddAsync(Order order, CancellationToken cancellationToken = default)
     {
-        await _dbContext.Set<Order>().AddAsync(order, cancellationToken);
+        await dbContext.Set<Order>().AddAsync(order, cancellationToken);
     }
 
     public void Delete(Order order)
     {
-        _dbContext.Set<Order>().Remove(order);
+        dbContext.Set<Order>().Remove(order);
     }
 
     public async Task<List<Order>?> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Set<Order>().ToListAsync(cancellationToken);
+        return await dbContext.Set<Order>().ToListAsync(cancellationToken);
     }
 
     public async Task<Order?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Set<Order>().FirstOrDefaultAsync(user => user.Id == id, cancellationToken);
+        return await dbContext.Set<Order>().FirstOrDefaultAsync(user => user.Id == id, cancellationToken);
     }
 }

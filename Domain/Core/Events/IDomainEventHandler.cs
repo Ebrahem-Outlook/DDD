@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Domain.Core.Abstractions.Events;
+namespace Domain.Core.Events;
 
 public interface IDomainEventHandler<TDomainEvent> : INotificationHandler<TDomainEvent>
     where TDomainEvent : IDomainEvent

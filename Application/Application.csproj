@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Core\Abstractions\Events\**" />
+    <Compile Remove="Orders\Events\**" />
+    <Compile Remove="Products\Events\**" />
+    <Compile Remove="Users\Events\**" />
+    <EmbeddedResource Remove="Core\Abstractions\Events\**" />
+    <EmbeddedResource Remove="Orders\Events\**" />
+    <EmbeddedResource Remove="Products\Events\**" />
+    <EmbeddedResource Remove="Users\Events\**" />
+    <None Remove="Core\Abstractions\Events\**" />
+    <None Remove="Orders\Events\**" />
+    <None Remove="Products\Events\**" />
+    <None Remove="Users\Events\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.9.2" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
     <PackageReference Include="MediatR" Version="12.3.0" />
@@ -15,13 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Core\Abstractions\Events\" />
-    <Folder Include="Orders\Events\" />
-    <Folder Include="Products\Events\" />
-    <Folder Include="Users\Events\" />
   </ItemGroup>
 
 </Project>

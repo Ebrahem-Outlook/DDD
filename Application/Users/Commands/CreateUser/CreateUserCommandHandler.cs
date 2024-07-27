@@ -20,6 +20,7 @@ internal sealed class CreateUserCommandHandler : ICommandHandler<CreateUserComma
 
     public async Task<UserDTO> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+
         User user = User.Create(request.FirstName, request.LastName, request.Email, request.Password);
 
         await _userRepository.AddAsync(user, cancellationToken);

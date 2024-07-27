@@ -1,6 +1,6 @@
 ﻿namespace Application.Core.Abstractions.Email;
 
-internal class IEmailService
+public interface IEmailService
 {
-    
+    Task SendEmailAsync(string from, string to, string message);
 }

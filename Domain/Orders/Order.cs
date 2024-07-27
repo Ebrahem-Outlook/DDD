@@ -12,7 +12,8 @@ public sealed class Order : AggregateRoot
     /// <param name="UserId">The identifier of user he create this order.</param>
     /// <param name="orderId">The identifier of order.</param>
     /// <param name="products">The list of products for this order.</param>
-    private Order(Guid UserId, Guid orderId, ICollection<Product> products) : base(orderId)
+    private Order(Guid UserId, Guid orderId, ICollection<Product> products) 
+        : base(orderId)
     {
         _products = products.ToList();
         TotalPrice = products.Sum(p => p.Price);

@@ -16,7 +16,8 @@ public sealed class Product : AggregateRoot
     /// <param name="name">The name of product.</param>
     /// <param name="description">The description of product.</param>
     /// <param name="price">The price of product.</param>
-    private Product(Guid userId, Guid productId, string name, string description, decimal price) : base(productId)
+    private Product(Guid userId, Guid productId, string name, string description, decimal price) 
+        : base(productId)
     {
         UserId = userId;
         Name = name;

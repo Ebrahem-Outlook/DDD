@@ -17,7 +17,8 @@ public sealed class User : AggregateRoot
     /// <param name="lastName">The last name of user.</param>
     /// <param name="email">The email of user.</param>
     /// <param name="password">The password of user.</param>
-    private User(Guid id, string firstName, string lastName, string email, string password) : base(id)
+    private User(Guid id, string firstName, string lastName, string email, string password)
+        : base(id)
     {
         FirstName = firstName;
         LastName = lastName;

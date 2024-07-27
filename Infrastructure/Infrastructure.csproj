@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Authentication\Settings\" />
+    <Folder Include="Emails\" />
   </ItemGroup>
 
 </Project>

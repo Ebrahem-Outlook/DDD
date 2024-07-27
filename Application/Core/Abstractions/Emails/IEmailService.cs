@@ -1,4 +1,6 @@
-﻿namespace Application.Core.Abstractions.Email;
+﻿using Contracts.Emails;
+
+namespace Application.Core.Abstractions.Email;
 
 /// <summary>
 /// Represents the email service interface.

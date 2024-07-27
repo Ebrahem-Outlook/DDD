@@ -4,6 +4,6 @@
 /// Represents the email notification service interface.
 /// </summary>
 public interface IEmailNotificationService
-{
+{ 
     Task SendWelcomeEmail();
 }

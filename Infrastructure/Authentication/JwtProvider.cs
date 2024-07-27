@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Authentication;
 
-internal sealed class JwtProvider(IOptions<>) : IJwtProvider
+internal sealed class JwtProvider : IJwtProvider
 {
     public string GenerateToken(User user)
     {
